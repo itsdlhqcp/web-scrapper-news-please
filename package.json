@@ -1,0 +1,26 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsdlhqcp/scrapper-new-please.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsdlhqcp/scrapper-new-please/issues"
+  },
+  "homepage": "https://github.com/itsdlhqcp/scrapper-new-please#readme",
+  "dependencies": {
+    "axios": "^1.12.1",
+    "cheerio": "^1.1.2",
+    "express": "^5.1.0"
+  }
+}
