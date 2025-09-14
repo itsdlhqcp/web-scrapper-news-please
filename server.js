@@ -4,7 +4,7 @@ const urls = require("./urls");
 
 const app = express();
 // Use environment PORT or fallback to 3000
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Add CORS middleware for cross-origin requests
 app.use((req, res, next) => {
