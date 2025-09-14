@@ -3,9 +3,8 @@ const cheerio = require("cheerio");
 
 async function scrapeArticle(url) {
   try {
-    // Enhanced axios configuration for deployment
     const { data } = await axios.get(url, {
-      timeout: 15000, // Increased timeout
+      timeout: 15000, 
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -22,7 +21,6 @@ async function scrapeArticle(url) {
 
     const $ = cheerio.load(data);
 
-    // Enhanced content extraction with fallbacks
     let title = $("meta[property='og:title']").attr("content") || 
                 $("meta[name='twitter:title']").attr("content") ||
                 $("h1").first().text() ||
@@ -34,7 +32,6 @@ async function scrapeArticle(url) {
                      $("meta[name='description']").attr("content") ||
                      "";
 
-    // More robust text extraction
     let text = "";
     const contentSelectors = [
       'article p',
@@ -51,21 +48,20 @@ async function scrapeArticle(url) {
       if (paragraphs.length > 0) {
         text = paragraphs.map((i, el) => $(el).text().trim())
                         .get()
-                        .filter(paragraph => paragraph.length > 20) // Filter out short paragraphs
+                        .filter(paragraph => paragraph.length > 20) 
                         .join(" ");
-        if (text.length > 100) break; // Use this selector if we got substantial content
+        if (text.length > 100) break;
       }
     }
 
-    // If still no content, try getting all text
     if (text.length < 100) {
       text = $("body").text().replace(/\s+/g, ' ').trim();
     }
 
     return {
       url,
-      title: title.trim().substring(0, 200), // Limit title length
-      description: description.trim().substring(0, 300), // Limit description length
+      title: title.trim().substring(0, 200), 
+      description: description.trim().substring(0, 300), 
       content: text.length > 500 ? text.substring(0, 500) + "..." : text,
       scraped_at: new Date().toISOString(),
       success: true
